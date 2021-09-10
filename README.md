@@ -43,7 +43,7 @@ _注意：每一步都和一个git分支相关联，这样你可以依次检出�
 
 ## Step 1 - 消费方简单调用提供方
 
-首先，我们需要创建一个HTTP client，它可以调用我们的provider service：
+首先，我们需要Consumer端创建一个HTTP client，它可以调用我们的provider service：
 
 ![Simple Consumer](diagrams/workshop_step1.svg)
 
@@ -77,7 +77,7 @@ public class ProductServiceClient {
 }
 ```
 
-在克隆了本仓库以后，你需要构建项目并下载依赖。在`consume`目录中，运行如下命令：
+在克隆了本仓库以后，你需要构建项目下载依赖。在`consume`目录中，运行如下命令：
 
 ```console
 consumer ❯ mvn verify
@@ -89,9 +89,7 @@ consumer ❯ mvn verify
 consumer ❯ java -jar target/product-catalogue-0.0.1-SNAPSHOT.jar
 ```
 
-Accessing the URL for the app in the browser gives us a 500 error page as the downstream service is not running. 
-
-在浏览器中访问应用(http://localhost:8080)，访问页面上的**here**链接，你会得到500错误页面，因为下游的服务提供方还不存在。
+现在在浏览器中访问应用(http://localhost:8080)，访问页面上的**here**链接，你会得到500错误页面，因为下游的服务提供方还不存在。
 
 在Springboot控制台输出中，你也会看到一个异常：
 
