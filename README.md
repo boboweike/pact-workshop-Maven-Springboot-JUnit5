@@ -41,22 +41,22 @@ _注意：每一步都和一个git分支相关联，这样你可以依次检出�
 1. Product Catalog网站。Product Service的消费方，它通过查询Product service获取产品信息。
 1. Product Service(提供方)。提供关于产品的有用信息，包括列出所有产品，获取每个产品的详情。
 
-## Step 1 - Simple Consumer calling Provider
+## Step 1 - 消费方简单调用提供方
 
-We need to first create an HTTP client to make the calls to our provider service:
+首先，我们需要创建一个HTTP client，它可以调用我们的provider service：
 
 ![Simple Consumer](diagrams/workshop_step1.svg)
 
-The Consumer has implemented the product service client which has the following:
+消费方已经实现了调用product service的client，它支持：
 
-- `GET /products` - Retrieve all products
-- `GET /products/{id}` - Retrieve a single product by ID
+- `GET /products` - 获取所有产品
+- `GET /products/{id}` - 通过ID获取一个产品
 
-The diagram below highlights the interaction for retrieving a product with ID 10:
+下图展示了获取ID为10的产品时，消费方和提供方之间的交互：
 
 ![Sequence Diagram](diagrams/workshop_step1_class-sequence-diagram.svg)
 
-You can see the service client interface we created in `consumer/src/main/java/io/pact/workshop/product_catalogue/clients/ProductServiceClient.java`:
+你可以在`consumer/src/main/java/io/pact/workshop/product_catalogue/clients/ProductServiceClient.java`这个文件中看到client实现:
 
 ```java
 @Service
@@ -77,24 +77,26 @@ public class ProductServiceClient {
 }
 ```
 
-After forking or cloning the repository, we need to build the app and install the dependencies. Run the following
-in the `consumer` sub-directory:
+在克隆了本仓库以后，你需要构建项目并下载依赖。在`consume`目录中，运行如下命令：
 
 ```console
-consumer ❯ ./mvnw verify
+consumer ❯ mvn verify
 ```
 
-We can run the app with 
+现在你可以运行项目： 
 
 ```console
 consumer ❯ java -jar target/product-catalogue-0.0.1-SNAPSHOT.jar
 ```
 
 Accessing the URL for the app in the browser gives us a 500 error page as the downstream service is not running. 
-You will also see an exception in the Springboot console output.
+
+在浏览器中访问应用(http://localhost:8080)，访问页面上的**here**链接，你会得到500错误页面，因为下游的服务提供方还不存在。
+
+在Springboot控制台输出中，你也会看到一个异常：
 
 ```
  I/O error on GET request for "http://localhost:9000/products": Connection refused
 ```
 
-*Move on to [step 2](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)*
+*现在可以进入[step 2](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)*
