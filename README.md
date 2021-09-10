@@ -1,45 +1,45 @@
-# Pact Maven + Springboot + JUnit5 workshop
+# 跟波波学Pact(基于Maven + Springboot + JUnit5)
 
-## Introduction
+## 介绍
 
-This workshop is aimed at demonstrating core features and benefits of contract testing with Pact.
+本向导旨在演示Pact的核心功能、以及契约驱动测试的好处。
 
-Whilst contract testing can be applied retrospectively to systems, we will follow the [consumer driven contracts](https://martinfowler.com/articles/consumerDrivenContracts.html) approach in this workshop - where a new consumer and provider are created in parallel to evolve a service over time, especially where there is some uncertainty with what is to be built.
+本向导演示[消费者驱动契约consumer driven contracts](https://martinfowler.com/articles/consumerDrivenContracts.html)方法 - 服务的消费方和提供方并行开发，基于契约不断迭代演化服务，尤其在开发之初，双方对要开发功能的细节还不是非常清楚。
 
-This workshop should take from 1 to 2 hours, depending on how deep you want to go into each topic.
+学习本课程耗时约1~2个小时，具体看你学习的深入程度。
 
-**Workshop outline**:
+**课程大纲**:
 
-- [step 1: **create consumer**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step1#step-1---simple-consumer-calling-provider): Create our consumer before the Provider API even exists
-- [step 2: **unit test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails): Write a unit test for our consumer
-- [step 3: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue): Write a Pact test for our consumer
-- [step 4: **pact verification**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider): Verify the consumer pact with the Provider API
-- [step 5: **fix consumer**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step5#step-5---back-to-the-client-we-go): Fix the consumer's bad assumptions about the Provider
-- [step 6: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step6#step-6---consumer-updates-contract-for-missing-products): Write a pact test for `404` (missing User) in consumer
-- [step 7: **provider states**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step7#step-7---adding-the-missing-states): Update API to handle `404` case
-- [step 8: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step8#step-8---authorization): Write a pact test for the `401` case
-- [step 9: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step9#step-9---implement-authorisation-on-the-provider): Update API to handle `401` case
-- [step 10: **request filters**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step10#step-10---request-filters-on-the-provider): Fix the provider to support the `401` case
-- [step 11: **pact broker**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step11#step-11---using-a-pact-broker): Implement a broker workflow for integration with CI/CD
+- [step 1: **创建消费方**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step1#step-1---simple-consumer-calling-provider): 在提供方API还不就绪前先创建消费方
+- [step 2: **单元测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails): 为消费方编写单元测试
+- [step 3: **Pact测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue): 为消费方编写Pact测试
+- [step 4: **Pact校验**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider): 利用提供方API校验消费方的Pact
+- [step 5: **修复消费方**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step5#step-5---back-to-the-client-we-go): 修复消费方对提供方的错误假设
+- [step 6: **Pact测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step6#step-6---consumer-updates-contract-for-missing-products): 在消费方编写一个404(用户不存在)的Pact测试用例
+- [step 7: **提供方陈述(states)**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step7#step-7---adding-the-missing-states): 更新提供方的API来处理404情况
+- [step 8: **Pact测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step8#step-8---authorization): 在消费方写一个401的Pact测试用例
+- [step 9: **Pact测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step9#step-9---implement-authorisation-on-the-provider): 更新提供方的API来处理401情况
+- [step 10: **请求过滤器**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step10#step-10---request-filters-on-the-provider) : 修复提供方以支持401情况
+- [step 11: **Pact中介(broker)**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step11#step-11---using-a-pact-broker): 实现Pact中介工作流，集成CI/CD
 
-_NOTE: Each step is tied to, and must be run within, a git branch, allowing you to progress through each stage incrementally. For example, to move to step 2 run the following: `git checkout step2`_
+_注意：每一步都和一个git分支相关联，这样你可以依次检出分支，逐步学习每一个步骤。例如，如果要学习step 2，那么请运行：`git checkout step2`_。
 
-## Learning objectives
+## 学习目标
 
-If running this as a team workshop format, you may want to take a look through the [learning objectives](./LEARNING.md).
+[这里](./LEARNING.md)有更详细的关于每一步的学习目标。
 
-## Requirements
+## 需求
 
-- JDK 8 or above
+- JDK 8 or 更高版本
 - Maven 3
-- Docker for step 11
+- step 11需要Docker
 
-## Scenario
+## 场景
 
-There are two components in scope for our workshop.
+本课程的源码包含两个主要的服务：
 
-1. Product Catalog website. It provides an interface to query the Product service for product information.
-1. Product Service (Provider). Provides useful things about products, such as listing all products and getting the details of an individual product.
+1. Product Catalog网站。Product Service的消费方，它通过查询Product service获取产品信息。
+1. Product Service(提供方)。提供关于产品的有用信息，包括列出所有产品，获取每个产品的详情。
 
 ## Step 1 - Simple Consumer calling Provider
 
