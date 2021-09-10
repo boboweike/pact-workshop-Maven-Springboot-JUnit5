@@ -89,7 +89,7 @@ consumer ❯ mvn verify
 consumer ❯ java -jar target/product-catalogue-0.0.1-SNAPSHOT.jar
 ```
 
-现在在浏览器中[访问应用](http://localhost:8080)，访问页面上的*here*链接，你会得到500错误页面，因为下游的服务提供方还不存在。
+现在在浏览器中[访问应用](http://localhost:8080)，访问页面上的[here](http://localhost:8080/catalogue)链接，你会得到500错误页面，因为下游的服务提供方还不存在。
 
 在Springboot控制台输出中，你也会看到一个异常：
 
