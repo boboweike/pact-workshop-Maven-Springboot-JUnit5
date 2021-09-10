@@ -262,7 +262,7 @@ provider ❯  mvn spring-boot:run
 2021-02-25 16:06:11.834  INFO 40129 --- [nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 ```
 
-现在请[访问网站](http://localhost:8080)，页面上应该会显示 3 个不同的产品。上面有一个`Details ...`链接应该可以展示产品的详情。
+现在请[访问网站](http://localhost:8080)，页面上应该会显示 3 个不同的产品。上面各有一个`Details ...`链接应该可以展示产品的详情。
 
 但是当你点击详情链接时候，看看发生了什么！
 
