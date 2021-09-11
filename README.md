@@ -97,7 +97,7 @@ consumer ❯ java -jar target/product-catalogue-0.0.1-SNAPSHOT.jar
  I/O error on GET request for "http://localhost:9000/products": Connection refused
 ```
 
-_现在可以进入[step 2](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)_
+_现在可以进入[step 2](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)_
 
 ## Step 2 - 客户端已经测试过，但是集成时失败了
 
@@ -278,4 +278,4 @@ HttpClientErrorException$NotFound: 404 : [{"timestamp":"2021-02-25T05:27:51.264+
 
 所以，消费方需要先和提供方确认端点！
 
-_现在转到[step 3](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue)_
+_现在转到[step 3](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue)_
