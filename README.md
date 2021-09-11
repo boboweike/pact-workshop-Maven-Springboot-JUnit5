@@ -1,62 +1,62 @@
-# Pact Maven + Springboot + JUnit5 workshop
+# 跟波波学 Pact(基于 Maven + Springboot + JUnit5)
 
-## Introduction
+## 介绍
 
-This workshop is aimed at demonstrating core features and benefits of contract testing with Pact.
+本向导旨在演示 Pact 的核心功能、以及契约驱动测试的好处。
 
-Whilst contract testing can be applied retrospectively to systems, we will follow the [consumer driven contracts](https://martinfowler.com/articles/consumerDrivenContracts.html) approach in this workshop - where a new consumer and provider are created in parallel to evolve a service over time, especially where there is some uncertainty with what is to be built.
+本向导演示[消费者驱动契约 consumer driven contracts](https://martinfowler.com/articles/consumerDrivenContracts.html)方法 - 服务的消费方和提供方并行开发，基于契约不断迭代演化服务，尤其在开发之初，双方对要开发功能的细节还不是非常清楚。
 
-This workshop should take from 1 to 2 hours, depending on how deep you want to go into each topic.
+学习本课程耗时约 1~2 个小时，具体看你学习的深入程度。
 
-**Workshop outline**:
+**课程大纲**:
 
-- [step 1: **create consumer**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step1#step-1---simple-consumer-calling-provider): Create our consumer before the Provider API even exists
-- [step 2: **unit test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails): Write a unit test for our consumer
-- [step 3: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue): Write a Pact test for our consumer
-- [step 4: **pact verification**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider): Verify the consumer pact with the Provider API
-- [step 5: **fix consumer**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step5#step-5---back-to-the-client-we-go): Fix the consumer's bad assumptions about the Provider
-- [step 6: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step6#step-6---consumer-updates-contract-for-missing-products): Write a pact test for `404` (missing User) in consumer
-- [step 7: **provider states**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step7#step-7---adding-the-missing-states): Update API to handle `404` case
-- [step 8: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step8#step-8---authorization): Write a pact test for the `401` case
-- [step 9: **pact test**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step9#step-9---implement-authorisation-on-the-provider): Update API to handle `401` case
-- [step 10: **request filters**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step10#step-10---request-filters-on-the-provider): Fix the provider to support the `401` case
-- [step 11: **pact broker**](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step11#step-11---using-a-pact-broker): Implement a broker workflow for integration with CI/CD
+- [step 1: **创建消费方**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step1#step-1---simple-consumer-calling-provider): 在提供方 API 还不就绪前先创建消费方
+- [step 2: **单元测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails): 为消费方编写单元测试
+- [step 3: **Pact 测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue): 为消费方编写 Pact 测试
+- [step 4: **Pact 校验**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider): 利用提供方 API 校验消费方的 Pact
+- [step 5: **修复消费方**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step5#step-5---back-to-the-client-we-go): 修复消费方对提供方的错误假设
+- [step 6: **Pact 测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step6#step-6---consumer-updates-contract-for-missing-products): 在消费方编写一个 404(用户不存在)的 Pact 测试用例
+- [step 7: **提供方状态(states)**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step7#step-7---adding-the-missing-states): 更新提供方的 API 来处理 404 情况
+- [step 8: **Pact 测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step8#step-8---authorization): 在消费方写一个 401 的 Pact 测试用例
+- [step 9: **Pact 测试**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step9#step-9---implement-authorisation-on-the-provider): 更新提供方的 API 来处理 401 情况
+- [step 10: **请求过滤器**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step10#step-10---request-filters-on-the-provider) : 修复提供方以支持 401 情况
+- [step 11: **Pact 中介(broker)**](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step11#step-11---using-a-pact-broker): 实现 Pact 中介工作流，集成 CI/CD
 
-_NOTE: Each step is tied to, and must be run within, a git branch, allowing you to progress through each stage incrementally. For example, to move to step 2 run the following: `git checkout step2`_
+_注意：每一步都和一个 git 分支相关联，这样你可以依次检出分支，逐步学习每一个步骤。例如，如果要学习 step 2，那么请运行：`git checkout step2`_。
 
-## Learning objectives
+## 学习目标
 
-If running this as a team workshop format, you may want to take a look through the [learning objectives](./LEARNING.md).
+[这里](./LEARNING.md)有更详细的关于每一步的学习目标。
 
-## Requirements
+## 需求
 
-- JDK 8 or above
+- JDK 8 or 更高版本
 - Maven 3
-- Docker for step 11
+- step 11 需要 Docker
 
-## Scenario
+## 场景
 
-There are two components in scope for our workshop.
+本课程的源码包含两个主要的服务：
 
-1. Product Catalog website. It provides an interface to query the Product service for product information.
-1. Product Service (Provider). Provides useful things about products, such as listing all products and getting the details of an individual product.
+1. Product Catalog 网站。Product Service 的消费方，它通过查询 Product service 获取产品信息。
+1. Product Service(提供方)。提供关于产品的有用信息，包括列出所有产品，获取每个产品的详情。
 
-## Step 1 - Simple Consumer calling Provider
+## Step 1 - 消费方简单调用提供方
 
-We need to first create an HTTP client to make the calls to our provider service:
+首先，我们需要 Consumer 端创建一个 HTTP client，它可以调用我们的 provider service：
 
 ![Simple Consumer](diagrams/workshop_step1.svg)
 
-The Consumer has implemented the product service client which has the following:
+消费方已经实现了调用 product service 的 client，它支持：
 
-- `GET /products` - Retrieve all products
-- `GET /products/{id}` - Retrieve a single product by ID
+- `GET /products` - 获取所有产品
+- `GET /products/{id}` - 通过 ID 获取一个产品
 
-The diagram below highlights the interaction for retrieving a product with ID 10:
+下图展示了获取 ID 为 10 的产品时，消费方和提供方之间的交互：
 
 ![Sequence Diagram](diagrams/workshop_step1_class-sequence-diagram.svg)
 
-You can see the service client interface we created in `consumer/src/main/java/io/pact/workshop/product_catalogue/clients/ProductServiceClient.java`:
+你可以在`consumer/src/main/java/io/pact/workshop/product_catalogue/clients/ProductServiceClient.java`这个文件中看到 client 实现:
 
 ```java
 @Service
@@ -77,36 +77,36 @@ public class ProductServiceClient {
 }
 ```
 
-After forking or cloning the repository, we need to build the app and install the dependencies. Run the following
-in the `consumer` sub-directory:
+在克隆了本仓库以后，你需要构建项目下载依赖。在`consume`目录中，运行如下命令：
 
 ```console
-consumer ❯ ./mvnw verify
+consumer ❯ mvn verify
 ```
 
-We can run the app with 
+现在你可以运行项目：
 
 ```console
 consumer ❯ java -jar target/product-catalogue-0.0.1-SNAPSHOT.jar
 ```
 
-Accessing the URL for the app in the browser gives us a 500 error page as the downstream service is not running. 
-You will also see an exception in the Springboot console output.
+现在在浏览器中[访问应用](http://localhost:8080)，访问页面上的[here](http://localhost:8080/catalogue)链接，你会得到 500 错误页面，因为下游的服务提供方还不存在。
+
+在 Springboot 控制台输出中，你也会看到一个异常：
 
 ```
  I/O error on GET request for "http://localhost:9000/products": Connection refused
 ```
 
-*Move on to [step 2](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)*
+_现在可以进入[step 2](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step2#step-2---client-tested-but-integration-fails)_
 
-## Step 2 - Client Tested but integration fails
+## Step 2 - 客户端已经测试过，但是集成时失败了
 
-Now let's create a basic test for our API client. We're going to check 2 things:
+现在我们给 API client 创建一个基本的测试。我们想要检查两个东西：
 
-1. That our client code hits the expected endpoint
-1. That the response is marshalled into an object that is usable, with the correct ID
+1. 客户端代码命中了正确的端点
+1. 响应可以被正确地反序列为一个对象，并且其中的数据是正确的
 
-You can see the client interface test we created in `consumer/src/test/java/io/pact/workshop/product_catalogue/clients/ProductServiceClientTest.java`:
+从`consumer/src/test/java/io/pact/workshop/product_catalogue/clients/ProductServiceClientTest.java`这个文件中你可以看到相应的测试代码:
 
 ```java
   @Test
@@ -124,48 +124,44 @@ You can see the client interface test we created in `consumer/src/test/java/io/p
                   "        }\n")
               .withHeader("Content-Type", "application/json"))
       );
-    
+
       Product product = productServiceClient.getProductById(10);
       assertThat(product, is(equalTo(new Product(10L, "28 Degrees", "CREDIT_CARD", "v1"))));
   }
 ```
 
-
-
 ![Unit Test With Mocked Response](diagrams/workshop_step2_unit_test.svg)
 
-
-
-Let's run this test and see it all pass:
+运行测试，校验测试都通过：
 
 ```console
-consumer ❯ ./mvnw verify
+consumer ❯ mvn verify
 [INFO] Scanning for projects...
-[INFO] 
+[INFO]
 [INFO] -----------------< io.pact.workshop:product-catalogue >-----------------
 [INFO] Building product-catalogue 0.0.1-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ product-catalogue ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] Copying 1 resource
 [INFO] Copying 0 resource
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ product-catalogue ---
 [INFO] Nothing to compile - all classes are up to date
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ product-catalogue ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] skip non existing resourceDirectory /home/ronald/Development/Projects/Pact/pact-workshop-Maven-Springboot-JUnit5/consumer/src/test/resources
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ product-catalogue ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 1 source file to /home/ronald/Development/Projects/Pact/pact-workshop-Maven-Springboot-JUnit5/consumer/target/test-classes
-[INFO] 
+[INFO]
 [INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ product-catalogue ---
-[INFO] 
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
@@ -175,14 +171,14 @@ consumer ❯ ./mvnw verify
 
 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.952 s - in io.pact.workshop.product_catalogue.clients.ProductServiceClientTest
 2021-02-25 13:37:46.510  INFO 25640 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-[INFO] 
+[INFO]
 [INFO] Results:
-[INFO] 
+[INFO]
 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
+[INFO]
+[INFO]
 [INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ product-catalogue ---
-[INFO] 
+[INFO]
 [INFO] --- spring-boot-maven-plugin:2.4.3:repackage (repackage) @ product-catalogue ---
 [INFO] Replacing main artifact with repackaged archive
 [INFO] ------------------------------------------------------------------------
@@ -193,10 +189,9 @@ consumer ❯ ./mvnw verify
 [INFO] ------------------------------------------------------------------------
 ```
 
-If you encounter failing tests after running `./mvnw verify`, make sure that the current branch is `step2`.
+如果在运行`mvn verify`后显示测试失败，请确认你的当前分支是`step2`。
 
-Meanwhile, our provider team has started building out their API in parallel. Let's run our website against our provider (you'll need two terminals to do this):
-
+期间，我们的服务提供方 provider 团队开始并行开发了他们的 API。现在，我们可以同时运行 consumer 和 provider(你需要在两个终端中分别运行)：
 
 ```console
 # Terminal 1
@@ -267,46 +262,42 @@ provider ❯  mvn spring-boot:run
 2021-02-25 16:06:11.834  INFO 40129 --- [nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 ```
 
-You should now see a screen showing 3 different products. There is a `Details ...` link which should display detailed product information.
+现在请[访问网站](http://localhost:8080)，页面上应该会显示 3 个不同的产品。上面各有一个`Details ...`链接应该可以展示产品的详情。
 
-Let's see what happens!
+但是当你点击详情链接时候，看看发生了什么！
 
 ![Failed page](diagrams/workshop_step2_failed_page.png)
 
-Doh! We are getting 500 everytime we try to view detailed product information. On closer inspection, 
-we can see a 404 from the Product Service in the logs.
+结果显示每次点击详情链接都会得到 500 错误。经过排查，发现 Consumer 端的日志中有访问 Producer Service 时产生的 404 错误。
 
 ```
 HttpClientErrorException$NotFound: 404 : [{"timestamp":"2021-02-25T05:27:51.264+00:00","status":404,"error":"Not Found","message":"","path":"/products/9"}]]
 ```
 
-The issue is that the provider only knows about `/product/{id}` and `/products`.
+问题出在 provider 提供的端点是`/product/{id}`和`/products`，而 consumer 请求的是`products/{id}`。
 
-We need to have a conversation about what the endpoint should be, but first...
+所以，消费方需要先和提供方确认端点！
 
-*Move on to [step 3](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue)*
+_现在转到[step 3](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step3#step-3---pact-to-the-rescue)_
 
-## Step 3 - Pact to the rescue
+## Step 3 - Pact 来帮忙
 
-Unit tests are written and executed in isolation of any other services. When we write tests for code that talk to
-other services, they are built on trust that the contracts are upheld. There is no way to validate that the 
-consumer and provider can communicate correctly.
+单元测试主要用于测试独立的组件/服务(独立于其它的服务)。当你对和其它服务交互的代码进行测试时(例如对 Consumer 访问 Producer 的 HTTP client 进行测试)，你是基于某种假设契约进行测试的。你无法直接校验这个契约在消费方和提供方之间是否正确。
 
-> An integration contract test is a test at the boundary of an external service verifying that it meets the 
-> contract expected by a consuming service — [Martin Fowler](https://martinfowler.com/bliki/IntegrationContractTest.html)
+> 契约集成测试是指一种对服务边界进行的测试，它用于校验服务提供方的接口满足消费方的期望 ~~ [Martin Fowler](https://martinfowler.com/bliki/IntegrationContractTest.html)
 
-Adding contract tests via Pact would have highlighted the `/product/{id}` endpoint was incorrect.
+如果添加了基于 Pact 的契约测试，那么就可以提前发现`/product/{id}`这个端点是不正确的。
 
-Let us add Pact to the project and write a consumer pact test for the `GET /products/{id}` endpoint.
+下面我们在项目中添加 Pact 依赖，然后为`GET /products/{id}`端点编写一个契约测试。
 
-*Provider states* is an important concept of Pact that we need to introduce. These states help define the state that the provider should be in for specific interactions. For the moment, we will initially be testing the following states:
+*提供方状态(Provider states)*是我们需要介绍的 Pact 中的一个重要概念。这些状态定义了在某个具体的交互中，provider 必须处于某种状态。目前，我们先测试下面的状态：
 
-- `product with ID 10 exists`
-- `products exist`
+- `ID为10的产品存在`
+- `所有产品存在`
 
-The consumer can define the state of an interaction using the `given` property.
+消费者可以使用`given`属性来定义一个交互的状态。
 
-Pact test `consumer/src/test/java/io/pact/workshop/product_catalogue/clients/ProductServiceClientPactTest.java`:
+Pact 测试代码 `consumer/src/test/java/io/pact/workshop/product_catalogue/clients/ProductServiceClientPactTest.java`:
 
 ```java
 @SpringBootTest
@@ -373,58 +364,55 @@ class ProductServiceClientPactTest {
 }
 ```
 
-
 ![Test using Pact](diagrams/workshop_step3_pact.svg)
 
-These tests starts a mock server on a random port that acts as our provider service. To get this to work we update the 
-URL in the `ProductServiceClient` to point to the mock server that Pact provides for the test.
+这些测试会在随机端口上启动一个 mock server，它扮演 provider service 的角色。为了让这个 mock server 生效，我们将`ProductServiceClient`的 URL 更新为指向 Pact 所提供的这个 mock server。
 
-Running this test also passes, but it creates a pact file which we can use to validate our assumptions on the 
-provider side, and have conversation around.
+运行这些测试的话都会通过，同时还会生成一个 pact 契约文件，后面我们可以利用这个 pack 文件，来校验在交互时 provider 端是否能满足 consumer 端的契约假设。
 
 ```console
-consumer ❯ ./mvnw verify
+consumer ❯ mvn verify
 [INFO] Scanning for projects...
-[INFO] 
+[INFO]
 [INFO] -----------------< io.pact.workshop:product-catalogue >-----------------
 [INFO] Building product-catalogue 0.0.1-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ product-catalogue ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] Copying 1 resource
 [INFO] Copying 6 resources
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ product-catalogue ---
 [INFO] Nothing to compile - all classes are up to date
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ product-catalogue ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] skip non existing resourceDirectory /home/ronald/Development/Projects/Pact/pact-workshop-Maven-Springboot-JUnit5/consumer/src/test/resources
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ product-catalogue ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 2 source files to /home/ronald/Development/Projects/Pact/pact-workshop-Maven-Springboot-JUnit5/consumer/target/test-classes
-[INFO] 
+[INFO]
 [INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ product-catalogue ---
-[INFO] 
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 
 <<< Omitted >>>
 
-[INFO] 
+[INFO]
 [INFO] Results:
-[INFO] 
+[INFO]
 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
+[INFO]
+[INFO]
 [INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ product-catalogue ---
 [INFO] Building jar: /home/ronald/Development/Projects/Pact/pact-workshop-Maven-Springboot-JUnit5/consumer/target/product-catalogue-0.0.1-SNAPSHOT.jar
-[INFO] 
+[INFO]
 [INFO] --- spring-boot-maven-plugin:2.4.3:repackage (repackage) @ product-catalogue ---
 [INFO] Replacing main artifact with repackaged archive
 [INFO] ------------------------------------------------------------------------
@@ -435,10 +423,8 @@ consumer ❯ ./mvnw verify
 [INFO] ------------------------------------------------------------------------
 ```
 
-A pact file should have been generated in *consumer/target/pacts/ProductCatalogue-ProductService.json*
+测试完毕，会生成一个 Pact 契约文件*consumer/target/pacts/ProductCatalogue-ProductService.json*
 
-*NOTE*: even if the API client had been graciously provided for us by our Provider Team, it doesn't mean that we 
-shouldn't write contract tests - because the version of the client we have may not always be in sync with the 
-deployed API - and also because we will write tests on the output appropriate to our specific needs.
+_注意_：即便 Provider 团队已经给我们提供了 API client，我们仍然需要编写契约测试 ~~ 因为这个 client 版本和已经部署的 API 可能并不同步，同时，我们需要根据我们提供的具体数据进行测试。
 
-*Move on to [step 4](https://github.com/pact-foundation/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider)*
+_现在可以转到[step 4](https://github.com/boboweike/pact-workshop-Maven-Springboot-JUnit5/tree/step4#step-4---verify-the-provider)_
